@@ -1,7 +1,7 @@
 package lessons.lesson11.hw;
 
 public class Demo {
-
+    //some notes for second commit
     public static void main(String[] args) {
         Room[] rooms1 = new Room[5];
 
