@@ -6,7 +6,7 @@ public abstract class Bank {
     private String bankCountry;
     private Currency currency;
     private int numberOfEmployees;
-    private double avrSalaryEmployee;
+    private double avrSalaryOfEmployee;
     long rating;
     long totalCapital;
 
@@ -15,7 +15,7 @@ public abstract class Bank {
         this.bankCountry = bankCountry;
         this.currency = currency;
         this.numberOfEmployees = numberOfEmployees;
-        this.avrSalaryEmployee = avrSalaryEmployee;
+        this.avrSalaryOfEmployee = avrSalaryEmployee;
         this.rating = rating;
         this.totalCapital = totalCapital;
     }
@@ -26,10 +26,10 @@ public abstract class Bank {
 
     public abstract double getMonthlyRate();
 
-    public abstract double getComission(int amount);
+    public abstract double getCommission(int amount);
 
-    public double moneyPaidMonthlyForSallary(){
-        return numberOfEmployees * avrSalaryEmployee;
+    public double moneyPaidMonthlyForSalary(){
+        return numberOfEmployees * avrSalaryOfEmployee;
     }
 
     public long getId() {
@@ -64,12 +64,12 @@ public abstract class Bank {
         this.numberOfEmployees = numberOfEmployees;
     }
 
-    public double getAvrSalaryEmployee() {
-        return avrSalaryEmployee;
+    public double getAvrSalaryOfEmployee() {
+        return avrSalaryOfEmployee;
     }
 
-    public void setAvrSalaryEmployee(double avrSalaryEmployee) {
-        this.avrSalaryEmployee = avrSalaryEmployee;
+    public void setAvrSalaryOfEmployee(double avrSalaryOfEmployee) {
+        this.avrSalaryOfEmployee = avrSalaryOfEmployee;
     }
 
     public long getRating() {
