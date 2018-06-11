@@ -20,7 +20,7 @@ public class UkrainianBankSystem implements BankSystem {
     @Override
     public void transferMoney(User fromUser, User toUser, int amount) {
         Currency fromUserCurency = fromUser.getBank().getCurrency();
-        Currency toUserCurency = fromUser.getBank().getCurrency();
+        Currency toUserCurency = toUser.getBank().getCurrency();
         if(checkWithdraw(fromUser, amount) && checkFunding(toUser, amount) && fromUserCurency == toUserCurency){
             withdraw(fromUser, amount);
             fund(toUser, amount);
