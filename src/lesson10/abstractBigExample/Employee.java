@@ -10,20 +10,40 @@ public abstract class Employee {
 
     private int salaryPerMonth;
     private BankAccount bankAccount;
-    private Company[] companiesWorked = new Company[10];
-    private String[] positionsWorked = new String[10];
+    private Company[] companiesWorked;
+    private String[] positionsWorked;
+
+    public Employee(String name, int age, int yearsOfExperience, String curPosition, int salaryPerMonth, BankAccount bankAccount, Company[] companiesWorked, String[] positionsWorked) {
+        this.name = name;
+        this.age = age;
+        this.yearsOfExperience = yearsOfExperience;
+        this.curPosition = curPosition;
+        this.salaryPerMonth = salaryPerMonth;
+        this.bankAccount = bankAccount;
+        this.companiesWorked = companiesWorked;
+        this.positionsWorked = positionsWorked;
+    }
 
     abstract void paySalery();
 
-    void changePosition(String newPosition){
+    public void changePosition(String newPosition){
         //save current position to history
         //change position
-        changePosition(newPosition);
-        curPosition = newPosition;
+
+        //changePosition(newPosition);
+        if(newPosition != null) {
+            curPosition = newPosition;
+        }
+        if(newPosition != null) {
+            savePositionToHistory();
+        }
     }
 
-    private void savePositionToHistory(){
+    public void savePositionToHistory(){
         int index = 0;
+        if (positionsWorked == null){
+            return;
+        }
         for(String position : positionsWorked){
             if(position == null){
                 positionsWorked[index] = curPosition;
@@ -47,5 +67,9 @@ public abstract class Employee {
 
     public String getName() {
         return name;
+    }
+
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
     }
 }

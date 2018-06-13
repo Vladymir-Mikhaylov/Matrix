@@ -17,4 +17,12 @@ public class BankAccount {
     public void setBalance(int balance) {
         this.balance = balance;
     }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 }

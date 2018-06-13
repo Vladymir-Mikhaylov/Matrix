@@ -28,5 +28,26 @@ public class Demo {
         //System.out.println(e2.getDateConfirmed());
         //System.out.println(f1.getDateConfirmed());
         //System.out.println(f2.getDateConfirmed());
+
+
+
+        //***********testing****************
+
+
+        Customer c1 = new Customer("Nick", "Киев", "Женский");
+        ElectronicsOrder ee1 = new ElectronicsOrder("Phone", new Date(), "Харьков", "Киев", 10000, c1, 3);
+        ElectronicsOrder ee2 = new ElectronicsOrder("Phone", new Date(), "Иркутск", "Киев", 1000, client2, 3);
+        ElectronicsOrder ee3 = new ElectronicsOrder("Phone", new Date(), "Харьков", "Киев", 10, client2, 3);
+        ElectronicsOrder ee4 = new ElectronicsOrder("Phone", new Date(), "Харьков", "Киев", 100000, client2, 3);
+        //validate
+        ee1.validateOrder();//validate with all good fields
+        ee2.validateOrder();//validate with unaceptable city shipedFrom
+        ee3.validateOrder();//validate with unaceptable basePrice
+
+        //calculate price
+        ee1.calculatePrice();//delivery from kiev, delivery 15% from gross
+        ee2.calculatePrice();//delivery from another cities, delivery 10% from gross
+        ee4.calculatePrice();//sale 5% price more than 1000
+        String end = "";
     }
 }
