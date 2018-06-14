@@ -5,8 +5,12 @@ public class FileReader implements Readable{
     public void readFilesFromStorage(Storage storage) {
         //find the biggest file
         //show all file's information
-
-        printFile(findMaxSizeFile(storage.getFiles()));
+        if(storage != null) {
+            File maxSizeFile = findMaxSizeFile(storage.getFiles());
+            if(maxSizeFile!= null) {
+                printFile(findMaxSizeFile(storage.getFiles()));
+            }
+        }
     }
 
     private File findMaxSizeFile(File[] files){
@@ -17,7 +21,9 @@ public class FileReader implements Readable{
                 maxSizeFile = file;
             }
         }
-        return maxSizeFile;
+        if(maxSizeFile != null) {
+            return maxSizeFile;
+        }return null;
     }
 
     private void printFile(File file){

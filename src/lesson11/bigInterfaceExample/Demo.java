@@ -17,6 +17,19 @@ public class Demo {
 
         read(storage, fileReader);
         read(storage, simpleReader);
+
+        //testing
+        System.out.println("testing");
+        //fileReader.findMaxSizeFile
+
+        fileReader.readFilesFromStorage(null);//storage = null
+
+        File [] files1 = new File[5];
+        Storage s = new Storage(files1);
+        FileReader fileReader1 = new FileReader();
+        fileReader1.readFilesFromStorage(s);//read from null array of files
+        fileReader.readFilesFromStorage(storage);//read file from storage where is an array with files
+
     }
 
     private static void read (Storage storage, Readable readable){

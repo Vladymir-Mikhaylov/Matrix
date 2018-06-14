@@ -8,11 +8,13 @@ public class SimpleReader implements Readable {
     }
 */
     public void readFilesFromStorage(Storage storage) {
-        for(File file : storage.getFiles()){
-            if(file != null){
-                System.out.println(file.getName());
-            }else {
-                System.out.println(file);
+        if(storage!= null) {
+            for (File file : storage.getFiles()) {
+                if (file != null) {
+                    System.out.println(file.getName());
+                } else {
+                    System.out.println(file);
+                }
             }
         }
     }
