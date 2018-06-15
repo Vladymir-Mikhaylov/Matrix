@@ -54,7 +54,10 @@ public abstract class Employee {
     }
 
     int getBalance(){
-        return bankAccount.getBalance();
+        if(bankAccount != null) {
+            return bankAccount.getBalance();
+        }
+        return 0;
     }
 
     public BankAccount getBankAccount() {
@@ -71,5 +74,25 @@ public abstract class Employee {
 
     public void setBankAccount(BankAccount bankAccount) {
         this.bankAccount = bankAccount;
+    }
+
+    public String getCurPosition() {
+        return curPosition;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public int getYearsOfExperience() {
+        return yearsOfExperience;
+    }
+
+    public Company[] getCompaniesWorked() {
+        return companiesWorked;
+    }
+
+    public String[] getPositionsWorked() {
+        return positionsWorked;
     }
 }

@@ -77,10 +77,14 @@ public class Demo {
 
         //testing userRepository.delete()
         System.out.println("delete");
+        System.out.println(Arrays.deepToString(new long[][]{userRepository.getUserIds()}));//show all before removing
         userRepository.delete(1);//remove not found
+        System.out.println(Arrays.deepToString(new long[][]{userRepository.getUserIds()}));//show all after removing
         userRepository.delete(11);//remove
+        System.out.println(Arrays.deepToString(new long[][]{userRepository.getUserIds()}));//show all after removing
         UserRepository userRepository3 = new UserRepository(null);
         userRepository3.delete(11);//remove from null users' array
+        System.out.println(Arrays.deepToString(new long[][]{userRepository.getUserIds()}));//show all after removing
 
 
         String s1 = "";

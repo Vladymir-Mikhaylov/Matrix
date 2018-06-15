@@ -41,13 +41,19 @@ public class Demo {
         ElectronicsOrder ee4 = new ElectronicsOrder("Phone", new Date(), "Харьков", "Киев", 100000, client2, 3);
         //validate
         ee1.validateOrder();//validate with all good fields
+        System.out.println(ee1.getDateConfirmed());
         ee2.validateOrder();//validate with unaceptable city shipedFrom
+        System.out.println(ee2.getDateConfirmed());
         ee3.validateOrder();//validate with unaceptable basePrice
+        System.out.println(ee3.getDateConfirmed());
 
         //calculate price
         ee1.calculatePrice();//delivery from kiev, delivery 15% from gross
+        System.out.println(ee1.getTotalPrice());
         ee2.calculatePrice();//delivery from another cities, delivery 10% from gross
+        System.out.println(ee2.getTotalPrice());
         ee4.calculatePrice();//sale 5% price more than 1000
+        System.out.println(ee3.getTotalPrice());
         String end = "";
     }
 }

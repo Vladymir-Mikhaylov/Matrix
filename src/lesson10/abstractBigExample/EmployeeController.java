@@ -22,4 +22,8 @@ public class EmployeeController {
 
     public EmployeeController() {
     }
+
+    public Employee[] getEmployees() {
+        return employees;
+    }
 }
