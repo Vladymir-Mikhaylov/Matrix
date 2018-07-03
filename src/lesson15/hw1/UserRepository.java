@@ -12,7 +12,7 @@ public class UserRepository {
     }
 
     public User save(User u) {
-        if(findUser(u) == null) {
+        if (findUser(u) == null) {
             for (int i = 0; i < users.length; i++) {
                 if (users[i] == null) {
                     users[i] = u;
@@ -24,34 +24,30 @@ public class UserRepository {
     }
 
     public User update(User u) {
-        if( users != null) {
-            for (int i = 0; i < users.length; i++) {
-                if (users[i] != null && users[i].getId() == u.getId()) {
-                        users[i] = u;
-                        return u;
-                }
+        for (int i = 0; i < users.length; i++) {
+            if (users[i] != null && users[i].getId() == u.getId()) {
+                users[i] = u;
+                return u;
             }
         }
         return null;
     }
 
     public void delete(long id) {
-        if(users != null) {
-            for (int i = 0; i < users.length; i++) {
-                if (users[i] != null && users[i].getId() == id) {
-                    users[i] = null;
-                    break;
-                }
+        for (int i = 0; i < users.length; i++) {
+            if (users[i] != null && users[i].getId() == id) {
+                users[i] = null;
+                break;
             }
         }
     }
 
-    public User findUser (User u) {
-            for (int i = 0; i < users.length; i++) {
-                if (users[i] != null && users[i].equals(u)) {
-                        return users[i];
-                }
+    public User findUser(User u) {
+        for (int i = 0; i < users.length; i++) {
+            if (users[i] != null && users[i].equals(u)) {
+                return users[i];
             }
+        }
         return null;
     }
 }

@@ -19,7 +19,7 @@ public class GoogleAPI implements API {
             int counter = 0;
             for (Room room : rooms) {
                 //sort rooms by params
-                if (room != null && room.getPrice() == price && room.getPersons() == persons && room.getCityName() == city && room.getHotelName() == hotel) {
+                if (room != null && room.getPrice() == price && room.getPersons() == persons && room.getCityName().equals(city) && room.getHotelName().equals(hotel)) {
                     searchedRoomsTemp[counter] = room;
                     counter++;
                 }

@@ -49,6 +49,7 @@ public class Controller {
         if(api1 == null && api2 == null){
             return new Room[0];
         }
+
         Room[] rooms1 = api1.getAll();
         Room[] rooms2 = api2.getAll();
         //cont
@@ -56,7 +57,7 @@ public class Controller {
         for(Room a : rooms1){
 
             for(Room b : rooms2){
-                if(a != null && b != null && a.getPrice() ==  b.getPrice() && a.getPersons() ==  b.getPersons() && a.getHotelName() ==  b.getHotelName() && a.getCityName() ==  b.getCityName()){
+                if((a != null) && (a.equals(b))){
                     counter++;
                 }
             }
@@ -66,7 +67,7 @@ public class Controller {
         for(Room a : rooms1){
             int position = 0;
             for(Room b : rooms2){
-                if(a != null && b != null && a.getPrice() ==  b.getPrice() && a.getPersons() ==  b.getPersons() && a.getHotelName() ==  b.getHotelName() && a.getCityName() ==  b.getCityName()){
+                if(a != null && a.equals(b)){
                     result[position] = a;
                     position++;
                 }
