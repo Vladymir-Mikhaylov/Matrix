@@ -6,9 +6,9 @@ public class Exercises {
     public static void main(String[] args) {
         String test = "There is Test something new or jot sdf sdf sdf word Test op or";
 
-        //System.out.println(deleteDuplicates(test));
+        System.out.println(deleteDuplicates(test));
 
-        //System.out.println(Arrays.toString(countDuplicates(test, new String[]{"or", "some", "test"})));
+        System.out.println(Arrays.toString(countDuplicates(test, new String[]{"or", "some", "test"})));
 
         String str = "Today is good day... Hello";
 
