@@ -3,6 +3,9 @@ package lesson19.hw;
 public class Controller {
 
     public void put(Storage storage, File file) throws Exception{
+        if(file == null){
+            return;
+        }
         validateFile(storage, file);
 
         File[] storageFiles = storage.getFiles();
@@ -18,9 +21,9 @@ public class Controller {
 
     public void delete(Storage storage, File file) throws Exception {
         File[] storageFiles = storage.getFiles();
-        if (storageFiles != null) {
+        if (storageFiles != null && file != null) {
 
-            checkFileInStorage(storage, file.getId());
+            getFile(storage, file.getId());
 
             for (int i = 0; i < storageFiles.length; i++){
                 if(storageFiles[i] != null && storageFiles[i].equals(file)){
@@ -71,7 +74,7 @@ public class Controller {
         checkFormat(storage, file);
 
         //check file if it exist
-        checkFileInStorage(storage, file.getId());
+        getFile(storage, file.getId());
 
         //check free space in the storage
         checkFreeSpace(storage, file);
@@ -86,23 +89,24 @@ public class Controller {
         }
     }
 
-    private boolean checkFormat (Storage storage, File file) throws Exception{
+    private void checkFormat (Storage storage, File file) throws Exception{
         String [] formats = storage.getFormatSuported();
         if(formats != null && formats.length > 0) {
             for (String format : formats) {
                 if(format.equals(file.getFormat())){
-                    return true;
+                    return;
                 }
             }
         }
         throw new Exception("Format for file " + file.getId() + " is not supported in storage " + storage.getId());
     }
-
+/**
     private void checkFileInStorage(Storage storage, long id) throws Exception{
         if(getFile(storage, id) == null){
             throw new Exception("File " + id + " not found in a storage " + storage.getId());
         }
     }
+*/
 
     private File getFile (Storage storage, long id)throws  Exception{
         File [] files = storage.getFiles();

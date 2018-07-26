@@ -2,18 +2,42 @@ package lesson19.hw;
 
 public class Demo {
     public static void main(String[] args) {
-        File f1 = new File(1, "f1", ".txt", 10);
-        File f2 = new File(2, "f2", ".txt", 10);
-        File f3 = new File(3, "f3", ".txt", 10);
+
+        File f1 = null;
+        File f2 = null;
+        File f3 = null;
+        File f4 = null;
+        File f5 = null;
+        File f6 = null;
+        File file1 = null;
+        File file2 = null;
+        File file3 = null;
+        File file4 = null;
+        File f7 = null;
+        File f8 = null;
+        try {
+            f1 = new File(1, "f1", ".txt", 10);
+            f2 = new File(2, "f2", ".txt", 10);
+            f3 = new File(3, "f3", ".txt", 10);
+            f4 = new File(4, "f4", ".doc", 10);
+            f5 = new File(5, "f5", ".doc", 10);
+            f6 = new File(6, "f6", ".txt", 10);
+            file1 = new File(5, "file", ".txt", 8);//ok
+            file2 = new File(5, "fileeeeeeeeeeeeeeeeeeeee", ".txt", 8);//too long name;
+            file3 = new File(5, "file", ".prd", 8);//not aceptable format
+            file4 = new File(5, "file", ".doc", 5);//not enough space
+            f7 = new File(12, "test7", ".txt", 150);
+            f8 = new File(13, "test8", ".java", 1);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
         File[] files1 = new File[5];
         files1[0] = f1;
         files1[3] = f2;
         files1[4] = f3;
 
-        File f4 = new File(4, "f4", ".doc", 10);
-        File f5 = new File(5, "f5", ".doc", 10);
-        File f6 = new File(6, "f6", ".txt", 10);
+
 
         File[] files2 = new File[5];
         files2[1] = f5;
@@ -27,10 +51,7 @@ public class Demo {
 
         Controller controller = new Controller();
         //check put method
-        File file1 = new File(5, "file", ".txt", 8);//ok
-        File file2 = new File(5, "fileeeeeeeeeeeeeeeeeeeee", ".txt", 8);//too long name;
-        File file3 = new File(5, "file", ".prd", 8);//not aceptable format
-        File file4 = new File(5, "file", ".doc", 60);//not enough space
+
         File file5 = null;//send file null to put method
         Storage s3 = null;//send storage null to put method
 
@@ -67,8 +88,8 @@ public class Demo {
         }
 
         //check transfer file method
-        File f7 = new File(12, "test7", ".txt", 150);
-        File f8 = new File(13, "test8", ".java", 1);
+
+
         Storage s5 = new Storage(7, new File[]{f7}, formats, "Croatia", 1000);
         Storage s6 = new Storage(8, new File[]{f8}, formats, "Croatia", 1000);
         try {

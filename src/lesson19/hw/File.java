@@ -9,8 +9,12 @@ public class File {
     private long size;
 
     /**Constructor**/
-    public File(long id, String name, String format, long size) {
+    public File(long id, String name, String format, long size) throws Exception{
         this.id = id;
+        //check name length
+        if(name.length() > 10){
+            throw new Exception("Wrong file name length. The length of file");
+        }
         this.name = name;
         this.format = format;
         this.size = size;
