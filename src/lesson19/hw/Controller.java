@@ -2,21 +2,21 @@ package lesson19.hw;
 
 public class Controller {
 
-    public void put(Storage storage, File file) throws Exception{
-        if(file == null){
-            return;
-        }
-        validateFile(storage, file);
+    public File put(Storage storage, File file) throws Exception{
+        if(file != null) {
 
-        File[] storageFiles = storage.getFiles();
-        if (storageFiles != null) {
-            for(int i = 0; i < storageFiles.length; i++){
-                if (storageFiles[i] == null){
-                    storageFiles[i] = file;
-                    return;
+            validateFile(storage, file);
+
+            if (storage.getFiles() != null) {
+                for (int i = 0; i < storage.getFiles().length; i++) {
+                    if (storage.getFiles()[i] == null) {
+                        storage.getFiles()[i] = file;
+                        return file;
+                    }
                 }
             }
         }
+        return null;
     }
 
     public void delete(Storage storage, File file) throws Exception {
@@ -34,14 +34,18 @@ public class Controller {
         }
     }
 
-    public void transferAll(Storage storageFrom, Storage storageTo) throws Exception{
+    public void transferAll(Storage storageFrom, Storage storageTo){
         if (storageFrom.getFiles() != null && storageTo.getFiles() != null){
 
             File [] filesFrom = storageFrom.getFiles();
 
             for (File f : filesFrom){
                 if(f != null){
-                    transferFile(storageFrom, storageTo, f.getId());
+                    try {
+                        transferFile(storageFrom, storageTo, f.getId());
+                    }catch (Exception e){
+                        e.getMessage();
+                    }
                 }
             }
         }
@@ -51,11 +55,13 @@ public class Controller {
         if (storageFrom.getFiles() != null && storageTo.getFiles() != null) {
 
             File file = getFile(storageFrom, id);
-
-            //remove
-            delete(storageFrom, file);
-            //insert
-            put(storageTo, file);
+            if(file != null) {
+                //insert
+                put(storageTo, file);
+                //remove
+                delete(storageFrom, file);
+            }
+            throw new Exception("File " + id + "not found in storage " + storageFrom.getId());
         }
     }
 
@@ -74,7 +80,7 @@ public class Controller {
         checkFormat(storage, file);
 
         //check file if it exist
-        getFile(storage, file.getId());
+        checkFileInStorage(storage, file.getId());
 
         //check free space in the storage
         checkFreeSpace(storage, file);
@@ -100,51 +106,49 @@ public class Controller {
         }
         throw new Exception("Format for file " + file.getId() + " is not supported in storage " + storage.getId());
     }
-/**
+
     private void checkFileInStorage(Storage storage, long id) throws Exception{
-        if(getFile(storage, id) == null){
-            throw new Exception("File " + id + " not found in a storage " + storage.getId());
+        if(getFile(storage, id) != null){
+            throw new Exception("File " + id + " already exist in a storage " + storage.getId());
         }
     }
-*/
+
 
     private File getFile (Storage storage, long id)throws  Exception{
-        File [] files = storage.getFiles();
-        if(files != null && files.length>0) {
-            for (File file : files) {
+        if(storage.getFiles() != null && storage.getFiles().length>0) {
+            for (File file : storage.getFiles()) {
                 if (file != null && file.getId() == id) {
                     return file;
                 }
             }
         }
-        throw new Exception("File " + id + " not found in a storage");
+        return null;
     }
 
     private void checkFreeSpace(Storage storageTo, File file) throws Exception{
-        if (getFreeSpace(storageTo) < file.getSize()) {
+        if (file == null || storageTo.getFiles() == null || getFreeSpace(storageTo) <= file.getSize()) {
             throw new Exception("There is not enough free space in storage " + storageTo.getId());
         }
     }
 
     //check free space in storage....space in mb for example
     private long getFreeSpace (Storage storage){
-        long freeSpace = 0;
-        File [] files = storage.getFiles();
-        if(files != null) {
+        long filesSize = 0;
+        if(storage.getFiles() != null) {
             for (File f : storage.getFiles()) {
                 if(f != null) {
-                    freeSpace += f.getSize();
+                    filesSize += f.getSize();
                 }
             }
         }
-        return freeSpace;
+        return storage.getStorageSize() - filesSize;
     }
 
     //check null positions in array
-    private boolean checkFreePlaceInStorage(Storage storage)throws Exception{
+    private void checkFreePlaceInStorage(Storage storage)throws Exception{
         for (File f : storage.getFiles()){
             if (f == null){
-                return true;
+                return;
             }
         }
         throw new Exception("There is not a free place in storage " + storage.getId());

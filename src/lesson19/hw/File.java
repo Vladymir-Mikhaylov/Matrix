@@ -12,9 +12,7 @@ public class File {
     public File(long id, String name, String format, long size) throws Exception{
         this.id = id;
         //check name length
-        if(name.length() > 10){
-            throw new Exception("Wrong file name length. The length of file");
-        }
+        validate(name);
         this.name = name;
         this.format = format;
         this.size = size;
@@ -66,5 +64,11 @@ public class File {
     public int hashCode() {
 
         return Objects.hash(id, name);
+    }
+
+    private void validate (String name) throws Exception{
+        if(name == null || name.isEmpty() ||  name.length() > 10){
+            throw new Exception("Wrong file name length. The length of file");
+        }
     }
 }

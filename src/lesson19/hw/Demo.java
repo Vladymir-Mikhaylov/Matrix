@@ -2,7 +2,6 @@ package lesson19.hw;
 
 public class Demo {
     public static void main(String[] args) {
-
         File f1 = null;
         File f2 = null;
         File f3 = null;
@@ -17,16 +16,60 @@ public class Demo {
         File f8 = null;
         try {
             f1 = new File(1, "f1", ".txt", 10);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        try{
             f2 = new File(2, "f2", ".txt", 10);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        try{
             f3 = new File(3, "f3", ".txt", 10);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        try{
             f4 = new File(4, "f4", ".doc", 10);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        try{
             f5 = new File(5, "f5", ".doc", 10);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        try{
             f6 = new File(6, "f6", ".txt", 10);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        try{
             file1 = new File(5, "file", ".txt", 8);//ok
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        try{
             file2 = new File(5, "fileeeeeeeeeeeeeeeeeeeee", ".txt", 8);//too long name;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        try{
             file3 = new File(5, "file", ".prd", 8);//not aceptable format
-            file4 = new File(5, "file", ".doc", 5);//not enough space
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        try{
+            file4 = new File(3, "file", ".doc", 20);//not enough space
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        try{
             f7 = new File(12, "test7", ".txt", 150);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        try{
             f8 = new File(13, "test8", ".java", 1);
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -40,8 +83,8 @@ public class Demo {
 
 
         File[] files2 = new File[5];
-        files2[1] = f5;
-        files2[2] = f4;
+        files2[1] = f4;
+        files2[2] = f5;
         files2[3] = f6;
 
         String [] formats = {".txt", ".doc", ".docx"};
@@ -54,6 +97,11 @@ public class Demo {
 
         File file5 = null;//send file null to put method
         Storage s3 = null;//send storage null to put method
+
+        File [] files = s1.getFiles();
+
+        System.out.println((files == s1.getFiles()) + " - " + (files.equals(s1.getFiles())));
+
 
         try {
             //controller.put(s3, file4);
