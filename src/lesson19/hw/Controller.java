@@ -35,30 +35,30 @@ public class Controller {
             validateTranferFiles(storageFrom, storageTo, filesFrom);
 
             for (File f : filesFrom){
-                if(f != null){
-                    transferFile(storageFrom,storageTo, f.getId());
-                }
+                transferFile(storageFrom,storageTo, f.getId());
             }
         //}
     }
 
     public void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception{
-        //if (storageFrom.getFiles() != null && storageTo.getFiles() != null) {
+        if (storageFrom.getFiles() != null && storageTo.getFiles() != null) {
 
             File file = getFile(storageFrom, id);
             if(file != null) {
                 //insert
+                validateFile(storageTo, file);
                 insertFile(storageTo.getFiles(), file);
                 //remove
                 delete(storageFrom, file);
+                return;
             }
             throw new Exception("File " + id + " not found in storage " + storageFrom.getId());
-        //}
+        }
     }
 
     /**
      * additional methods
-     */
+    */
 
     private void validateFile(Storage storage, File file) throws Exception{
 
