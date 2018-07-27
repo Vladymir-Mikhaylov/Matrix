@@ -6,75 +6,61 @@ public class Controller {
         if(file != null) {
 
             validateFile(storage, file);
+            insertFile(storage.getFiles(), file);
 
-            if (storage.getFiles() != null) {
-                for (int i = 0; i < storage.getFiles().length; i++) {
-                    if (storage.getFiles()[i] == null) {
-                        storage.getFiles()[i] = file;
-                        return file;
-                    }
-                }
-            }
+            return file;
         }
         return null;
     }
 
     public void delete(Storage storage, File file) throws Exception {
-        File[] storageFiles = storage.getFiles();
-        if (storageFiles != null && file != null) {
+        if (storage.getFiles() != null && file != null) {
 
             getFile(storage, file.getId());
 
-            for (int i = 0; i < storageFiles.length; i++){
-                if(storageFiles[i] != null && storageFiles[i].equals(file)){
-                    storageFiles[i] = null;
+            for (int i = 0; i < storage.getFiles().length; i++){
+                if(storage.getFiles()[i] != null && storage.getFiles()[i].equals(file)){
+                    storage.getFiles()[i] = null;
                     return;
                 }
             }
         }
     }
 
-    public void transferAll(Storage storageFrom, Storage storageTo){
-        if (storageFrom.getFiles() != null && storageTo.getFiles() != null){
+    public void transferAll(Storage storageFrom, Storage storageTo)throws Exception{
+        //if (storageFrom.getFiles() != null && storageTo.getFiles() != null){
 
             File [] filesFrom = storageFrom.getFiles();
 
+            validateTranferFiles(storageFrom, storageTo, filesFrom);
+
             for (File f : filesFrom){
                 if(f != null){
-                    try {
-                        transferFile(storageFrom, storageTo, f.getId());
-                    }catch (Exception e){
-                        e.getMessage();
-                    }
+                    transferFile(storageFrom,storageTo, f.getId());
                 }
             }
-        }
+        //}
     }
 
     public void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception{
-        if (storageFrom.getFiles() != null && storageTo.getFiles() != null) {
+        //if (storageFrom.getFiles() != null && storageTo.getFiles() != null) {
 
             File file = getFile(storageFrom, id);
             if(file != null) {
                 //insert
-                put(storageTo, file);
+                insertFile(storageTo.getFiles(), file);
                 //remove
                 delete(storageFrom, file);
             }
-            throw new Exception("File " + id + "not found in storage " + storageFrom.getId());
-        }
+            throw new Exception("File " + id + " not found in storage " + storageFrom.getId());
+        //}
     }
-
-
 
     /**
      * additional methods
      */
 
     private void validateFile(Storage storage, File file) throws Exception{
-
-        //check fileName length
-        checkFileName(file.getName());
 
         //check accepted or not a file format in storage
         checkFormat(storage, file);
@@ -87,12 +73,6 @@ public class Controller {
 
         //check free place in storage
         checkFreePlaceInStorage(storage);
-    }
-
-    private void checkFileName (String name)throws Exception{
-        if (name == null && name.length() > 10){
-            throw new Exception("Wrong file name length. The length of file ");
-        }
     }
 
     private void checkFormat (Storage storage, File file) throws Exception{
@@ -113,7 +93,7 @@ public class Controller {
         }
     }
 
-
+    //return null of file not found
     private File getFile (Storage storage, long id)throws  Exception{
         if(storage.getFiles() != null && storage.getFiles().length>0) {
             for (File file : storage.getFiles()) {
@@ -126,7 +106,7 @@ public class Controller {
     }
 
     private void checkFreeSpace(Storage storageTo, File file) throws Exception{
-        if (file == null || storageTo.getFiles() == null || getFreeSpace(storageTo) <= file.getSize()) {
+        if (storageTo.getFiles() == null || getFreeSpace(storageTo) <= file.getSize()) {
             throw new Exception("There is not enough free space in storage " + storageTo.getId());
         }
     }
@@ -134,13 +114,11 @@ public class Controller {
     //check free space in storage....space in mb for example
     private long getFreeSpace (Storage storage){
         long filesSize = 0;
-        if(storage.getFiles() != null) {
             for (File f : storage.getFiles()) {
                 if(f != null) {
                     filesSize += f.getSize();
                 }
             }
-        }
         return storage.getStorageSize() - filesSize;
     }
 
@@ -152,5 +130,27 @@ public class Controller {
             }
         }
         throw new Exception("There is not a free place in storage " + storage.getId());
+    }
+
+    private void validateTranferFiles(Storage storageFrom, Storage storageTo, File [] filesFrom) throws Exception {
+        //check if enough space for files from storageFrom in storageTo
+        if(getFreeSpace(storageTo) < (storageFrom.getStorageSize() - getFreeSpace(storageFrom))){
+            throw new Exception("There isn't enough free space for files from storage " + storageFrom.getId() + " in storage " + storageTo.getId());
+        }
+        for (File f : filesFrom){
+            if(f != null){
+                validateFile(storageTo, f);
+            }
+        }
+    }
+
+    private void insertFile(File[] files, File file){
+        if (files != null) {
+            for (int i = 0; i < files.length; i++) {
+                if (files[i] == null) {
+                    files[i] = file;
+                }
+            }
+        }
     }
 }
