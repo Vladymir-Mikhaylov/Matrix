@@ -81,7 +81,7 @@ public class TransactionDAO {
         //amount of transactions per day is more than limited
         //transactions city is not accepted >> BadRequestException
         //not enough space in array >> internalServerException;
-        if(transaction.getAmount() > utils.getLimitTransactionAmount()){
+        if(transaction.getAmount() > utils.getLimitSimpleTransactionAmount()){
             throw new LimitExceeded("Transaction limit is exceeded" + transaction.getId() + ". Can't be saved");
         }
 
@@ -90,12 +90,12 @@ public class TransactionDAO {
             sum += tr.getAmount();
         }
 
-        if(sum > utils.getLimitTransactionsPerDayAmopunt()){
+        if(sum > utils.getLimitTransactionsPerDayAmount()){
             throw new LimitExceeded("Transaction limit sum is exceeded " + transaction.getId() + ". Can't be saved");
         }
 
         int count = getTransactionsPerDay(transaction.getDateCreated()).length;
-        if(count > utils.getLimitTransactionAmount()){
+        if(count > utils.getLimitSimpleTransactionAmount()){
             throw new LimitExceeded("Transaction limit amount is exceeded " + transaction.getId() + ". Can't be saved");
         }
 

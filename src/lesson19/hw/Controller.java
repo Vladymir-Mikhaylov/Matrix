@@ -16,7 +16,9 @@ public class Controller {
     public void delete(Storage storage, File file) throws Exception {
         if (storage.getFiles() != null && file != null) {
 
-            getFile(storage, file.getId());
+            if(getFile(storage, file.getId()) == null){
+                throw new Exception("File " + file.getId() + " not found in storage " + storage.getId());
+            }
 
             for (int i = 0; i < storage.getFiles().length; i++){
                 if(storage.getFiles()[i] != null && storage.getFiles()[i].equals(file)){
@@ -94,7 +96,7 @@ public class Controller {
     }
 
     //return null of file not found
-    private File getFile (Storage storage, long id)throws  Exception{
+    private File getFile (Storage storage, long id){
         if(storage.getFiles() != null && storage.getFiles().length>0) {
             for (File file : storage.getFiles()) {
                 if (file != null && file.getId() == id) {

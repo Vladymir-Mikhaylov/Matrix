@@ -4,7 +4,6 @@ public class RuntimeExceptionExample {
     public static void main(String[] args) {
         arifmeticException(2);
 
-
         try {
             arifmeticException(0);
         }catch (Exception e){
@@ -24,6 +23,5 @@ public class RuntimeExceptionExample {
             System.out.println(object.hashCode());
         }
     }
-
 
 }
