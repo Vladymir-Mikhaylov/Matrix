@@ -47,6 +47,7 @@ public class Controller {
             if(file != null) {
                 //insert
                 validateFile(storageTo, file);
+                /**
                 int position_1 = 0;
                 int position_2 = 0;
                 //insert
@@ -63,12 +64,12 @@ public class Controller {
                     }
                     position_1++;
                 }
+                */
 
-                /**
                 insertFile(storageTo.getFiles(), file);
                 //remove
                 delete(storageFrom, file);
-                 */
+
                 return;
             }
             throw new Exception("File " + id + " not found in storage " + storageFrom.getId());
@@ -180,6 +181,7 @@ public class Controller {
             for (int i = 0; i < files.length; i++) {
                 if (files[i] == null) {
                     files[i] = file;
+                    break;
                 }
             }
         }
