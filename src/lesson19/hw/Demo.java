@@ -50,7 +50,7 @@ public class Demo {
             System.out.println(e.getMessage());
         }
         try{
-            file2 = new File(5, "fileeeeeeeeeeeeeeeeeeeee", ".txt", 8);//too long name;
+            file2 = new File(5, "fileeee", ".txt", 8);//too long name;
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -100,9 +100,9 @@ public class Demo {
 
         File [] files = s1.getFiles();
 
-        System.out.println((files == s1.getFiles()) + " - " + (files.equals(s1.getFiles())));
+        //System.out.println((files == s1.getFiles()) + " - " + (files.equals(s1.getFiles())));
 
-
+/**
         try {
             //controller.put(s3, file4);
             //controller.put(s3, file4);
@@ -134,7 +134,7 @@ public class Demo {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-
+*/
         //check transfer file method
 
 
@@ -142,9 +142,9 @@ public class Demo {
         Storage s6 = new Storage(8, new File[]{f8}, formats, "Croatia", 1000);
         try {
             //controller.transferFile(s2, s1, 1);//catch file not found exception
-            //controller.transferFile(s2, s1, 5);//normally transfer
+            controller.transferFile(s1, s2, 3);//normally transfer
             //controller.transferFile(s5, s1, 12);//catch there is not enough space in next storage
-            controller.transferFile(s6, s1, 13);//catch Illeagal format exception
+            //controller.transferFile(s6, s1, 13);//catch Illeagal format exception
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

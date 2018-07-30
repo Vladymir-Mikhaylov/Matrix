@@ -49,19 +49,18 @@ public class Controller {
                 validateFile(storageTo, file);
                 int position = 0;
                 //insert
-                for(File f : storageTo.getFiles()){
-                    if(f == null){
+                for(File fileInsert : storageTo.getFiles()){
+                    if(fileInsert == null ){
                         storageTo.getFiles()[position] = file;
+                        for(File fileDelete : storageFrom.getFiles()){
+                            if(fileDelete != null && fileDelete.getId() == id){
+                                storageTo.getFiles()[position] = null;
+                            }
+                        }
                         break;
                     }
                 }
-                position = 0;
-                //delete
-                for(File f : storageFrom.getFiles()){
-                    if(f.getId() == id){
-                        storageTo.getFiles()[position] = null;
-                    }
-                }
+
                 /**
                 insertFile(storageTo.getFiles(), file);
                 //remove
