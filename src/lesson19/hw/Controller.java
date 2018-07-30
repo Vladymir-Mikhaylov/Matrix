@@ -47,18 +47,21 @@ public class Controller {
             if(file != null) {
                 //insert
                 validateFile(storageTo, file);
-                int position = 0;
+                int position_1 = 0;
+                int position_2 = 0;
                 //insert
                 for(File fileInsert : storageTo.getFiles()){
                     if(fileInsert == null ){
-                        storageTo.getFiles()[position] = file;
+                        storageTo.getFiles()[position_1] = file;
                         for(File fileDelete : storageFrom.getFiles()){
                             if(fileDelete != null && fileDelete.getId() == id){
-                                storageTo.getFiles()[position] = null;
+                                storageFrom.getFiles()[position_2] = null;
                             }
+                            position_2++;
                         }
                         break;
                     }
+                    position_1++;
                 }
 
                 /**
@@ -77,7 +80,9 @@ public class Controller {
     */
 
     private void validateFile(Storage storage, File file) throws Exception{
-
+        if(storage == null || file == null || storage.getFiles() == null || storage.getFormatSuported() == null) {
+            throw new NullPointerException("can't make validation.Null pointer Exception");
+        }
         //check accepted or not a file format in storage
         checkFormat(storage, file);
 
@@ -89,11 +94,12 @@ public class Controller {
 
         //check free place in storage
         countFreePlaceInStorage(storage);
+
     }
 
     private void checkFormat (Storage storage, File file) throws Exception{
         String [] formats = storage.getFormatSuported();
-        if(formats != null && formats.length > 0) {
+        if(formats.length > 0) {
             for (String format : formats) {
                 if(format.equals(file.getFormat())){
                     return;
