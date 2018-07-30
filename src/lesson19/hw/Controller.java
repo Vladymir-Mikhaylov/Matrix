@@ -47,9 +47,25 @@ public class Controller {
             if(file != null) {
                 //insert
                 validateFile(storageTo, file);
+                int position = 0;
+                //insert
+                for(File f : storageTo.getFiles()){
+                    if(f == null){
+                        storageTo.getFiles()[position] = file;
+                    }
+                }
+                position = 0;
+                //delete
+                for(File f : storageTo.getFiles()){
+                    if(f.getId() == id){
+                        storageTo.getFiles()[position] = null;
+                    }
+                }
+                /**
                 insertFile(storageTo.getFiles(), file);
                 //remove
                 delete(storageFrom, file);
+                 */
                 return;
             }
             throw new Exception("File " + id + " not found in storage " + storageFrom.getId());
