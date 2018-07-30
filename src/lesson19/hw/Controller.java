@@ -45,27 +45,10 @@ public class Controller {
 
             File file = getFile(storageFrom, id);
             if(file != null) {
-                //insert
-                validateFile(storageTo, file);
-                /**
-                int position_1 = 0;
-                int position_2 = 0;
-                //insert
-                for(File fileInsert : storageTo.getFiles()){
-                    if(fileInsert == null ){
-                        storageTo.getFiles()[position_1] = file;
-                        for(File fileDelete : storageFrom.getFiles()){
-                            if(fileDelete != null && fileDelete.getId() == id){
-                                storageFrom.getFiles()[position_2] = null;
-                            }
-                            position_2++;
-                        }
-                        break;
-                    }
-                    position_1++;
-                }
-                */
 
+                validateFile(storageTo, file);
+
+                //insert
                 insertFile(storageTo.getFiles(), file);
                 //remove
                 delete(storageFrom, file);
