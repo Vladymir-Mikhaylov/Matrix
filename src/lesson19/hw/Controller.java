@@ -32,11 +32,9 @@ public class Controller {
     public void transferAll(Storage storageFrom, Storage storageTo)throws Exception{
         //if (storageFrom.getFiles() != null && storageTo.getFiles() != null){
 
-            File [] filesFrom = storageFrom.getFiles();
+            validateTranferFiles(storageFrom, storageTo);
 
-            validateTranferFiles(storageFrom, storageTo, filesFrom);
-
-            for (File f : filesFrom){
+            for (File f : storageFrom.getFiles()){
                 transferFile(storageFrom,storageTo, f.getId());
             }
         //}
@@ -74,7 +72,7 @@ public class Controller {
         checkFreeSpace(storage, file);
 
         //check free place in storage
-        checkFreePlaceInStorage(storage);
+        countFreePlaceInStorage(storage);
     }
 
     private void checkFormat (Storage storage, File file) throws Exception{
@@ -125,23 +123,32 @@ public class Controller {
     }
 
     //check null positions in array
-    private void checkFreePlaceInStorage(Storage storage)throws Exception{
+    private int countFreePlaceInStorage(Storage storage)throws Exception{
+        int freePlaces = 0;
         for (File f : storage.getFiles()){
             if (f == null){
-                return;
+                freePlaces++;
             }
         }
-        throw new Exception("There is not a free place in storage " + storage.getId());
+        if(freePlaces == 0) {
+            throw new Exception("There is not a free place in storage " + storage.getId());
+        }
+        return freePlaces;
     }
 
-    private void validateTranferFiles(Storage storageFrom, Storage storageTo, File [] filesFrom) throws Exception {
+    private void validateTranferFiles(Storage storageFrom, Storage storageTo) throws Exception {
         //check if enough space for files from storageFrom in storageTo
         if(getFreeSpace(storageTo) < (storageFrom.getStorageSize() - getFreeSpace(storageFrom))){
             throw new Exception("There isn't enough free space for files from storage " + storageFrom.getId() + " in storage " + storageTo.getId());
         }
-        for (File f : filesFrom){
+        for (File f : storageFrom.getFiles()){
             if(f != null){
-                validateFile(storageTo, f);
+                //check accepted or not a file format in storage
+                checkFormat(storageTo, f);
+                //check file if it exist
+                checkFileInStorage(storageTo, f.getId());
+                //check free places in storage
+                compareFreePlaces(storageFrom, storageTo);
             }
         }
     }
@@ -154,5 +161,21 @@ public class Controller {
                 }
             }
         }
+    }
+
+    private void compareFreePlaces(Storage storageFrom, Storage storageTo) throws Exception{
+        if(countFreePlaceInStorage(storageTo) < countFiles(storageFrom)){
+            throw new Exception("There are not enough place for transfer files from storage: " + storageFrom.getId() + " to storage: " + storageTo.getId());
+        }
+    }
+
+    private int countFiles(Storage storage){
+        int filesAmount = 0;
+        for(File f : storage.getFiles()){
+            if (f != null){
+                filesAmount++;
+            }
+        }
+        return filesAmount;
     }
 }
