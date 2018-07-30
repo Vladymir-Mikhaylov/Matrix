@@ -52,11 +52,12 @@ public class Controller {
                 for(File f : storageTo.getFiles()){
                     if(f == null){
                         storageTo.getFiles()[position] = file;
+                        break;
                     }
                 }
                 position = 0;
                 //delete
-                for(File f : storageTo.getFiles()){
+                for(File f : storageFrom.getFiles()){
                     if(f.getId() == id){
                         storageTo.getFiles()[position] = null;
                     }
