@@ -5,7 +5,6 @@ import lesson20.task2.exception.InternalServerException;
 import lesson20.task2.exception.LimitExceeded;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class TransactionDAO {
@@ -13,10 +12,19 @@ public class TransactionDAO {
     private Transaction[] transactions = new Transaction[10];
     private Utils utils = new Utils();
 
-    public Transaction save (Transaction transaction) throws BadRequestException, InternalServerException {
-
-        validate(transaction);
-        return insert(transaction);
+    public Transaction save (Transaction transaction){
+        Transaction result = null;
+        try {
+            validate(transaction);
+            result = insert(transaction);
+        }catch (LimitExceeded ex){
+            System.out.println(ex.getMessage());
+        }catch (InternalServerException ex){
+            System.out.println(ex.getMessage());
+        }catch (BadRequestException ex){
+            System.out.println(ex.getMessage());
+        }
+        return result;
     }
 
     public Transaction [] transactionList(){
@@ -85,7 +93,9 @@ public class TransactionDAO {
 
         int sum = 0;
         for(Transaction tr : getTransactionsPerDay(transaction.getDateCreated())){
-            sum += tr.getAmount();
+            if(tr != null) {
+                sum += tr.getAmount();
+            }
         }
 
         if(sum > utils.getLimitTransactionsPerDayAmount()){

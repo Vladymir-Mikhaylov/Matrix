@@ -1,13 +1,10 @@
 package lesson20.task2;
 
-import lesson20.task2.exception.BadRequestException;
-import lesson20.task2.exception.InternalServerException;
-
 public class Controller {
 
     private TransactionDAO transactionDAO = new TransactionDAO();
 
-    public Transaction save (Transaction transaction) throws BadRequestException, InternalServerException {
+    public Transaction save (Transaction transaction){
         return transactionDAO.save(transaction);
     }
 
@@ -26,7 +23,6 @@ public class Controller {
     /**
      * Constructors
      */
-    public Controller(TransactionDAO transactionDAO) {
-        this.transactionDAO = transactionDAO;
+    public Controller() {
     }
 }
