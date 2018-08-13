@@ -12,18 +12,18 @@ public class TransactionDAO {
     private Transaction[] transactions = new Transaction[10];
     private Utils utils = new Utils();
 
-    public Transaction save (Transaction transaction){
+    public Transaction save (Transaction transaction) throws BadRequestException, InternalServerException {
         Transaction result = null;
-        try {
+        //try {
             validate(transaction);
             result = insert(transaction);
-        }catch (LimitExceeded ex){
-            System.out.println(ex.getMessage());
-        }catch (InternalServerException ex){
-            System.out.println(ex.getMessage());
-        }catch (BadRequestException ex){
-            System.out.println(ex.getMessage());
-        }
+        //}catch (LimitExceeded ex){
+        //    System.out.println(ex.getMessage());
+        //}catch (InternalServerException ex){
+        //    System.out.println(ex.getMessage());
+        //}catch (BadRequestException ex){
+        //    System.out.println(ex.getMessage());
+        //}
         return result;
     }
 
@@ -109,7 +109,7 @@ public class TransactionDAO {
         //validate is transaction city is allowed or not?
         validateTransactionCity(transaction.getCity(), transaction.getId());
         //validate is there any free space for new transaction in our storage
-        validateFreeSpaceInTransactionsArrayAndCheckExistedTransaction(transaction);
+        validateDublicates(transaction);
     }
 
     /**
@@ -145,29 +145,21 @@ public class TransactionDAO {
         throw new BadRequestException("Transaction is denied. Not acceptable city for transaction: " + id);
     }
 
-    private void validateFreeSpaceInTransactionsArrayAndCheckExistedTransaction(Transaction transaction) throws InternalServerException, BadRequestException {
-        boolean freeSpace = false;
-        //going by loop and checking free space and already existed transaction
+    private void validateDublicates(Transaction transaction) throws InternalServerException, BadRequestException {
         for(Transaction tr : transactions){
-            if(tr == null){
-                freeSpace = true;
-            }
             if(tr != null && tr.equals(transaction)){
                 throw new BadRequestException("Transaction is denied. Transaction: " + transaction.getId() + " already exist");
             }
         }
-        if(!freeSpace) {
-            throw new InternalServerException("Transaction is denied. There is not enough free space in storage for transaction: " + transaction.getId());
-        }
     }
 
-    private Transaction insert (Transaction transaction){
+    private Transaction insert (Transaction transaction) throws InternalServerException{
         for(int i = 0; i<transactions.length; i++){
             if(transactions[i] == null){
                 transactions[i] = transaction;
                 return transactions[i];
             }
         }
-        return null;//this line newer will be compiled;
+        throw new InternalServerException("Transaction is denied. There is not enough free space in storage for transaction: " + transaction.getId());
     }
 }

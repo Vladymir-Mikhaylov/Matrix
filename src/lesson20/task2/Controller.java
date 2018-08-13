@@ -5,7 +5,14 @@ public class Controller {
     private TransactionDAO transactionDAO = new TransactionDAO();
 
     public Transaction save (Transaction transaction){
-        return transactionDAO.save(transaction);
+        Transaction tr = null;
+        try{
+           tr = transactionDAO.save(transaction);
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+        return tr;
     }
 
     public Transaction [] transactionList(){
