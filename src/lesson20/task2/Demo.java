@@ -1,9 +1,12 @@
 package lesson20.task2;
 
+import lesson20.task2.exception.BadRequestException;
+import lesson20.task2.exception.InternalServerException;
+
 import java.util.Date;
 
 public class Demo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BadRequestException, InternalServerException {
 
         Transaction tr1 = new Transaction(1, "Kiev", 40, "test1", TransactionType.OUTCOME, new Date());
         Transaction tr2 = new Transaction(1, "Odessa", 30, "test1", TransactionType.INCOME, new Date());

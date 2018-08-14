@@ -13,18 +13,16 @@ public class TransactionDAO {
     private Utils utils = new Utils();
 
     public Transaction save (Transaction transaction) throws BadRequestException, InternalServerException {
-        Transaction result = null;
-        //try {
-            validate(transaction);
-            result = insert(transaction);
-        //}catch (LimitExceeded ex){
-        //    System.out.println(ex.getMessage());
-        //}catch (InternalServerException ex){
-        //    System.out.println(ex.getMessage());
-        //}catch (BadRequestException ex){
-        //    System.out.println(ex.getMessage());
-        //}
-        return result;
+
+        validate(transaction);
+
+        for(int i = 0; i<transactions.length; i++){
+            if(transactions[i] == null){
+                transactions[i] = transaction;
+                return transactions[i];
+            }
+        }
+        throw new InternalServerException("Transaction is denied. There is not enough free space in storage for transaction: " + transaction.getId());
     }
 
     public Transaction [] transactionList(){
@@ -83,14 +81,10 @@ public class TransactionDAO {
 
     private void validate(Transaction transaction) throws BadRequestException, InternalServerException {
         //sum of transaction is more than total limit
-        //sum of transaction is more than limit per day
-        //amount of transactions per day is more than limited
-        //transactions city is not accepted >> BadRequestException
-        //not enough space in array >> internalServerException;
         if(transaction.getAmount() > utils.getLimitSimpleTransactionAmount()){
             throw new LimitExceeded("Transaction limit is exceeded. Transaction " + transaction.getId() + " can't be saved");
         }
-
+        //sum of transaction is more than limit per day
         int sum = 0;
         for(Transaction tr : getTransactionsPerDay(transaction.getDateCreated())){
             if(tr != null) {
@@ -98,16 +92,19 @@ public class TransactionDAO {
             }
         }
 
-        if(sum > utils.getLimitTransactionsPerDayAmount()){
+        if(sum + transaction.getAmount() > utils.getLimitTransactionsPerDayAmount()){
             throw new LimitExceeded("Transaction limit sum is exceeded. Transaction " + transaction.getId() + " can't be saved");
         }
 
+        //amount of transactions per day is more than limited
         int count = getTransactionsPerDay(transaction.getDateCreated()).length;
         if(count > utils.getLimitSimpleTransactionAmount()){
             throw new LimitExceeded("Transaction limit amount is exceeded " + transaction.getId() + ". Can't be saved");
         }
+        //transactions city is not accepted >> BadRequestException
         //validate is transaction city is allowed or not?
         validateTransactionCity(transaction.getCity(), transaction.getId());
+        //not enough space in array >> internalServerException;
         //validate is there any free space for new transaction in our storage
         validateDublicates(transaction);
     }
@@ -151,15 +148,5 @@ public class TransactionDAO {
                 throw new BadRequestException("Transaction is denied. Transaction: " + transaction.getId() + " already exist");
             }
         }
-    }
-
-    private Transaction insert (Transaction transaction) throws InternalServerException{
-        for(int i = 0; i<transactions.length; i++){
-            if(transactions[i] == null){
-                transactions[i] = transaction;
-                return transactions[i];
-            }
-        }
-        throw new InternalServerException("Transaction is denied. There is not enough free space in storage for transaction: " + transaction.getId());
     }
 }
