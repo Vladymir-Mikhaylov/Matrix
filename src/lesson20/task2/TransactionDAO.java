@@ -79,7 +79,7 @@ public class TransactionDAO {
         return result;
     }
 
-    private void validate(Transaction transaction) throws BadRequestException, InternalServerException {
+    private void validate(Transaction transaction) throws BadRequestException {
         //sum of transaction is more than total limit
         if(transaction.getAmount() > utils.getLimitSimpleTransactionAmount()){
             throw new LimitExceeded("Transaction limit is exceeded. Transaction " + transaction.getId() + " can't be saved");
@@ -101,11 +101,9 @@ public class TransactionDAO {
         if(count > utils.getLimitSimpleTransactionAmount()){
             throw new LimitExceeded("Transaction limit amount is exceeded " + transaction.getId() + ". Can't be saved");
         }
-        //transactions city is not accepted >> BadRequestException
-        //validate is transaction city is allowed or not?
+        //validate is transaction city is allowed or not?  transactions city is not accepted >> BadRequestException
         validateTransactionCity(transaction.getCity(), transaction.getId());
-        //not enough space in array >> internalServerException;
-        //validate is there any free space for new transaction in our storage
+        //validate is there any free space for new transaction in our storage  not enough space in array >> internalServerException;
         validateDublicates(transaction);
     }
 
@@ -121,7 +119,6 @@ public class TransactionDAO {
                     count++;
             }
         }
-
         Transaction[] result = new Transaction[count];
         int position = 0;
         for (Transaction tr : transactions){
@@ -142,7 +139,7 @@ public class TransactionDAO {
         throw new BadRequestException("Transaction is denied. Not acceptable city for transaction: " + id);
     }
 
-    private void validateDublicates(Transaction transaction) throws InternalServerException, BadRequestException {
+    private void validateDublicates(Transaction transaction) throws BadRequestException {
         for(Transaction tr : transactions){
             if(tr != null && tr.equals(transaction)){
                 throw new BadRequestException("Transaction is denied. Transaction: " + transaction.getId() + " already exist");
