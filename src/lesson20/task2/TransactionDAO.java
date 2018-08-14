@@ -97,8 +97,8 @@ public class TransactionDAO {
         }
 
         //amount of transactions per day is more than limited
-        int count = getTransactionsPerDay(transaction.getDateCreated()).length;
-        if(count + 1 > utils.getLimitSimpleTransactionAmount()){
+        int amount = getTransactionsPerDay(transaction.getDateCreated()).length;
+        if((amount + 1) > utils.getLimitSimpleTransactionAmount()){
             throw new LimitExceeded("Transaction limit amount is exceeded " + transaction.getId() + ". Can't be saved");
         }
         //validate is transaction city is allowed or not?  transactions city is not accepted >> BadRequestException
