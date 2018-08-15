@@ -20,6 +20,12 @@ public class Demo {
 
         System.out.println(Arrays.deepToString(UserRepository.getUsers()));
 
+        UserRepository.delete(1001);
+
         System.out.println(Arrays.deepToString(UserRepository.getUsers()));
+
+        System.out.println(UserRepository.getUserByName("Andrey").toString());
+
+        System.out.println(UserRepository.getUserNameById(1002));
     }
 }
