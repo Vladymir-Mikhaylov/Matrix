@@ -7,7 +7,7 @@ public class HW_3 {
         System.out.println(2.3/0.2);
         System.out.println(sum1(1, Integer.MAX_VALUE));
         System.out.println(sum2(1, Integer.MAX_VALUE));
-        //System.out.println(compareSums(-1, Integer.MAX_VALUE, 5,8));//+5+6+7+8=26 || 6+7+8+9 = 30
+        //Sys.out.println(compareSums(-1, Integer.MAX_VALUE, 5,8));//+5+6+7+8=26 || 6+7+8+9 = 30
 
     }
 

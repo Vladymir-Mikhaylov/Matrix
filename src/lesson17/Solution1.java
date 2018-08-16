@@ -20,7 +20,7 @@ public class Solution1 {
         System.out.println(validate(s4));
         System.out.println(validate(s5));
         System.out.println(validate(s6));
-        //System.out.println(validate(s7));
+        //Sys.out.println(validate(s7));
         System.out.println(validate(s8));
         System.out.println(validate(s9));
         System.out.println(validate(s10));

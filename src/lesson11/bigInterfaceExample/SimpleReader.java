@@ -4,7 +4,7 @@ public class SimpleReader implements Readable {
 /**
     static String test;
     public static void main(String[] args) {
-        System.out.println(test.length());
+        Sys.out.println(test.length());
     }
 */
     public void readFilesFromStorage(Storage storage) {

@@ -100,7 +100,7 @@ public class Demo {
 
         File [] files = s1.getFiles();
 
-        //System.out.println((files == s1.getFiles()) + " - " + (files.equals(s1.getFiles())));
+        //Sys.out.println((files == s1.getFiles()) + " - " + (files.equals(s1.getFiles())));
 
 /**
         try {
@@ -108,7 +108,7 @@ public class Demo {
             //controller.put(s3, file4);
             controller.put(s2, file4);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Sys.out.println(e.getMessage());
         }
 
         //check delete method
@@ -119,7 +119,7 @@ public class Demo {
             //controller.delete(s2, null);send nulls to method
             //controller.delete(null, null);//send nulls to method
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Sys.out.println(e.getMessage());
         }
 
         //check transfer all
@@ -132,7 +132,7 @@ public class Demo {
             //controller.transferAll(null, s2);//send nulls to method transferAll
             //controller.transferAll(s2, s4);//catch not format aceptable exception
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            Sys.out.println(e.getMessage());
         }
 */
         //check transfer file method

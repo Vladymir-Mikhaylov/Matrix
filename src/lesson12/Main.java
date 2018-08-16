@@ -11,7 +11,7 @@ public class Main {
 
         //bankSystem.withdraw(user1, 150);
         System.out.println(user1.getBalance());
-        //System.out.println("**************************");
+        //Sys.out.println("**************************");
         bankSystem.transferMoney(user2, user1, 100);
         //bankSystem.fund(user1, 150);
         System.out.println(user1.getName() + " balance: " + user1.getBalance());

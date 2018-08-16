@@ -15,8 +15,8 @@ public class Demo {
         company.setName("IBM");
 
         Checker checker = new Checker();
-        //System.out.println(checker.checkCompanyName(company.getName()));
-        //System.out.println(checker.companyNamesValidatedCount);
+        //Sys.out.println(checker.checkCompanyName(company.getName()));
+        //Sys.out.println(checker.companyNamesValidatedCount);
         //company.code;
 
         //testing useRepository.getNames;

@@ -12,6 +12,6 @@ public class FirstArray {
         }
         System.out.println(arr);
         System.out.println(Arrays.toString(arr));
-        //System.out.println(arr[5]);//error  ArrayIndexOutOfBoundsException
+        //Sys.out.println(arr[5]);//error  ArrayIndexOutOfBoundsException
     }
 }

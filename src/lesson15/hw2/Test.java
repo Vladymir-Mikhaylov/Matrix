@@ -37,11 +37,11 @@ public class Test {
         //Room r1 = new Room(1, 250, 4,  "hotel", "city");
         //Room r2 = new Room(2, 250, 4,  "hotel", "city");
         /***
-        System.out.println(r1.toString());
-        System.out.println(r2.toString());
-        System.out.println(r1.toString() == r2.toString());
-        System.out.println(r1.toString().equals(r2.toString()));
-        System.out.println(r1.equals(r2));
+        Sys.out.println(r1.toString());
+        Sys.out.println(r2.toString());
+        Sys.out.println(r1.toString() == r2.toString());
+        Sys.out.println(r1.toString().equals(r2.toString()));
+        Sys.out.println(r1.equals(r2));
         */
     }
 }

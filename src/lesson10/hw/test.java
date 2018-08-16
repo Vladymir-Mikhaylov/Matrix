@@ -3,8 +3,8 @@ package lesson10.hw;
 public class test {
     public static void main(String[] args) {
         String s1 = "-12";
-        //System.out.println(new Integer("ss")+ 5);
-        //System.out.println(Integer.parseInt("hh") + 2);
+        //Sys.out.println(new Integer("ss")+ 5);
+        //Sys.out.println(Integer.parseInt("hh") + 2);
         int a = 5;
         if(true && false){
             a=10;

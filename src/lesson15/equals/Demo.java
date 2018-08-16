@@ -16,7 +16,7 @@ public class Demo {
         System.out.println(file3.hashCode());
         System.out.println(file1.equals(file3));
 
-        //System.out.println(file1.hashCode() == file3.hashCode());
+        //Sys.out.println(file1.hashCode() == file3.hashCode());
 
         System.out.println(file1 == file3);
 

@@ -25,9 +25,9 @@ public class Demo {
         f2.calculatePrice();
         System.out.println(f1.getDateConfirmed());
         System.out.println(f1.getTotalPrice());
-        //System.out.println(e2.getDateConfirmed());
-        //System.out.println(f1.getDateConfirmed());
-        //System.out.println(f2.getDateConfirmed());
+        //Sys.out.println(e2.getDateConfirmed());
+        //Sys.out.println(f1.getDateConfirmed());
+        //Sys.out.println(f2.getDateConfirmed());
 
 
 
