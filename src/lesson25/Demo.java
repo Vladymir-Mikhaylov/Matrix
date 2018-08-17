@@ -1,7 +1,5 @@
 package lesson25;
 
-import lesson24.exercise.Tool;
-
 import java.util.Arrays;
 
 public class Demo {
