@@ -4,10 +4,6 @@ public class GeneralDAO <T> {
 
     private T[] DB = (T[])new Object[10];
 
-    public void print(Order order){
-        System.out.println("order is: " + order.toString());
-    }
-
     public T save(T t)throws Exception{
         if(find(t) != null) {
             throw new Exception("can't save an object. object already exist");

@@ -7,7 +7,6 @@ public class Demo {
         GeneralDAO generalDAO = new GeneralDAO();
 
         Order o1 = new Order(1);
-        generalDAO.validate(o1);
 
         TestClass<String, Order, Long> testClass = new TestClass<>();
 
