@@ -15,11 +15,10 @@ public class DemoComparator {
         capabilities.add(capability2);
         capabilities.add(capability3);
         capabilities.add(capability4);
+        capabilities.add(null);
 
         capabilities.sort(new DateComparator());
 
         System.out.println(capabilities);
-
-
     }
 }
