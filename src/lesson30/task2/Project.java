@@ -40,4 +40,13 @@ public class Project {
     public int hashCode() {
         return Objects.hash(name, customer);
     }
+    /**
+    @Override
+    public String toString() {
+        return "Project{" +
+                "name='" + name + '\'' +
+                ", customer=" + customer +
+                '}';
+    }
+    */
 }

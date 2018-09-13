@@ -1,6 +1,7 @@
 package lesson30.task2;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class EmployeeDAO {
     private ArrayList<Employee> employees = new ArrayList<>();
@@ -21,13 +22,15 @@ public class EmployeeDAO {
         return employees;
     }
 
-    public ArrayList<Employee> employeesByProject(String projectName){
-        ArrayList<Employee> result = new ArrayList<>();
+    public HashSet<Employee> employeesByProject(String projectName){
+        HashSet<Employee> result = new HashSet<>();
         for(Employee e : employees){
             if(e != null) {
-                for (Project project : e.getProjects()) {
-                    if (project != null && project.getName() == projectName) {
-                        result.add(e);
+                if(e.getProjects() != null) {
+                    for (Project project : e.getProjects()) {
+                        if (project != null && project.getName() == projectName) {
+                            result.add(e);
+                        }
                     }
                 }
             }
@@ -35,11 +38,11 @@ public class EmployeeDAO {
         return result;
     }
 
-    public ArrayList<Employee> employeesByDepartmentWithoutProject(DepartmentType depType){
-        ArrayList<Employee> result = new ArrayList<>();
+    public HashSet<Employee> employeesByDepartmentWithoutProject(DepartmentType depType){
+        HashSet<Employee> result = new HashSet<>();
 
         for(Employee e : employees){
-            if(e != null && e.getDepartment().getDepType() == depType && e.getProjects() == null){
+            if(e != null && e.getDepartment() != null && e.getDepartment().getDepType() == depType && e.getProjects() == null){
                 result.add(e);
             }
         }
@@ -47,8 +50,8 @@ public class EmployeeDAO {
     }
 
 
-    public ArrayList<Employee> employeesWithoutProject(){
-        ArrayList<Employee> result = new ArrayList<>();
+    public HashSet<Employee> employeesWithoutProject(){
+        HashSet<Employee> result = new HashSet<>();
 
         for(Employee e : employees){
             if(e != null && e.getProjects() == null){
@@ -58,13 +61,15 @@ public class EmployeeDAO {
         return result;
     }
 
-    public ArrayList<Employee> employeesByTeamLead(Employee lead){
-        ArrayList<Employee> result = new ArrayList<>();
+    public HashSet<Employee> employeesByTeamLead(Employee lead){
+        HashSet<Employee> result = new HashSet<>();
         if(lead.getProjects() != null){
             for(Project project : lead.getProjects()){
-                for(Employee empl : employeesByProject(project.getName())){
-                    if(empl.getPosition() != Position.TEAM_LEAD){
-                        result.add(empl);
+                if(project != null && employeesByProject(project.getName()) != null) {
+                    for (Employee empl : employeesByProject(project.getName())) {
+                        if (empl != null && empl.getPosition() != Position.TEAM_LEAD) {
+                            result.add(empl);
+                        }
                     }
                 }
             }
@@ -72,18 +77,20 @@ public class EmployeeDAO {
         return result;
     }
 
-    public ArrayList<Employee> employeesByProjectEmployee(Employee employee){
-        ArrayList<Employee> result = new ArrayList<>();
+    public HashSet<Employee> employeesByProjectEmployee(Employee employee){
+        HashSet<Employee> result = new HashSet<>();
         if(employee.getProjects() != null) {
             for (Project project : employee.getProjects()) {
-                result.addAll(employeesByProject(project.getName()));
+                if(project != null) {
+                    result.addAll(employeesByProject(project.getName()));
+                }
             }
         }
         return result;
     }
 
-    public ArrayList<Employee> employeesByCustomerProjects(Customer customer){
-        ArrayList<Employee> result = new ArrayList<>();
+    public HashSet<Employee> employeesByCustomerProjects(Customer customer){
+        HashSet<Employee> result = new HashSet<>();
 
         for (Employee e : employees){
             if(e != null && e.getProjects() != null){
@@ -98,8 +105,8 @@ public class EmployeeDAO {
         return result;
     }
 
-    public ArrayList<Employee> teamLeadsByEmployee(Employee employee){
-        ArrayList<Employee> result = new ArrayList<>();
+    public HashSet<Employee> teamLeadsByEmployee(Employee employee){
+        HashSet<Employee> result = new HashSet<>();
 
         if(employee.getProjects() != null){
             for(Project project : employee.getProjects()){

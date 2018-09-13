@@ -51,4 +51,14 @@ public class Customer {
     public int hashCode() {
         return Objects.hash(name, country, monthlyPay);
     }
+    /**
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name='" + name + '\'' +
+                ", country='" + country + '\'' +
+                ", monthlyPay=" + monthlyPay +
+                '}';
+    }
+    */
 }
