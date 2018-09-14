@@ -9,7 +9,8 @@ public class ReadFromKeyboard {
     public static void main(String[] args)throws IOException {
         //using scanner
         //readKeyboardWithScanner ();
-        readKeyboardWithIOStream();
+        System.out.println(Integer.parseInt("4aa5"));
+        //readKeyboardWithIOStream();
     }
 
     private static void readKeyboardWithScanner (){
