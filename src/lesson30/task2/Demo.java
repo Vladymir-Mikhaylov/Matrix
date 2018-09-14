@@ -24,13 +24,13 @@ public class Demo {
         projects3.add(project2);
         projects3.add(project3);
         //Departments
-        Department devDep = new Department(DepartmentType.IT, null);
-        Department financeDep = new Department(DepartmentType.FINANCE, null);
+        Department devDep = new Department(DepartmentType.IT, new ArrayList<>());
+        Department financeDep = new Department(DepartmentType.FINANCE, new ArrayList<>());
         //EMPLOYEES
         Employee empl_1 = new Employee("Employee-1 FirstName", "Employee-1 SecondName", new Date(), Position.DEVELOPER, devDep, projects1);
-        Employee empl_2 = new Employee("Employee-2 FirstName", "Employee-2 SecondName", new Date(), Position.DEVELOPER, null, null);
+        Employee empl_2 = new Employee("Employee-2 FirstName", "Employee-2 SecondName", new Date(), Position.DEVELOPER, null, new ArrayList<>());
         Employee empl_3 = new Employee("Employee-3 FirstName", "Employee-3 SecondName", new Date(), Position.TEAM_LEAD, devDep, projects3);
-        Employee empl_5 = new Employee("Employee-5 FirstName", "Employee-3 SecondName", new Date(), Position.TEAM_LEAD, financeDep, null);
+        Employee empl_5 = new Employee("Employee-5 FirstName", "Employee-3 SecondName", new Date(), Position.TEAM_LEAD, financeDep, new ArrayList<>());
         Employee empl_4 = new Employee("Employee-4 FirstName", "Employee-4 SecondName", new Date(), Position.DEVELOPER, financeDep, projects3);
         //DAOs
         EmployeeDAO employeeDAO = new EmployeeDAO();

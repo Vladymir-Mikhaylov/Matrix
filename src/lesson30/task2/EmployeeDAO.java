@@ -26,11 +26,9 @@ public class EmployeeDAO {
         HashSet<Employee> result = new HashSet<>();
         for(Employee e : employees){
             if(e != null) {
-                if(e.getProjects() != null) {
-                    for (Project project : e.getProjects()) {
-                        if (project != null && project.getName() == projectName) {
-                            result.add(e);
-                        }
+                for (Project project : e.getProjects()) {
+                    if (project != null && project.getName().equals(projectName)) {
+                        result.add(e);
                     }
                 }
             }
@@ -42,7 +40,7 @@ public class EmployeeDAO {
         HashSet<Employee> result = new HashSet<>();
 
         for(Employee e : employees){
-            if(e != null && e.getDepartment() != null && e.getDepartment().getDepType() == depType && e.getProjects() == null){
+            if(e != null && e.getDepartment() != null && e.getDepartment().getDepType() == depType && e.getProjects().size() == 0){
                 result.add(e);
             }
         }
@@ -54,7 +52,7 @@ public class EmployeeDAO {
         HashSet<Employee> result = new HashSet<>();
 
         for(Employee e : employees){
-            if(e != null && e.getProjects() == null){
+            if(e != null){
                 result.add(e);
             }
         }
@@ -63,29 +61,29 @@ public class EmployeeDAO {
 
     public HashSet<Employee> employeesByTeamLead(Employee lead){
         HashSet<Employee> result = new HashSet<>();
-        if(lead.getProjects() != null){
-            for(Project project : lead.getProjects()){
-                if(project != null && employeesByProject(project.getName()) != null) {
-                    for (Employee empl : employeesByProject(project.getName())) {
-                        if (empl != null && empl.getPosition() != Position.TEAM_LEAD) {
-                            result.add(empl);
-                        }
+
+        for(Project project : lead.getProjects()){
+            if(project != null) {
+                for (Employee empl : employeesByProject(project.getName())) {
+                    if (empl != null && empl.getPosition() != Position.TEAM_LEAD) {
+                        result.add(empl);
                     }
                 }
             }
         }
+
         return result;
     }
 
     public HashSet<Employee> employeesByProjectEmployee(Employee employee){
         HashSet<Employee> result = new HashSet<>();
-        if(employee.getProjects() != null) {
-            for (Project project : employee.getProjects()) {
-                if(project != null) {
-                    result.addAll(employeesByProject(project.getName()));
-                }
+
+        for (Project project : employee.getProjects()) {
+            if(project != null) {
+                result.addAll(employeesByProject(project.getName()));
             }
         }
+
         return result;
     }
 
@@ -93,7 +91,7 @@ public class EmployeeDAO {
         HashSet<Employee> result = new HashSet<>();
 
         for (Employee e : employees){
-            if(e != null && e.getProjects() != null){
+            if(e != null){
                 for (Project project : e.getProjects()){
                     if (project != null && project.getCustomer().equals(customer)){
                         result.add(e);
@@ -108,12 +106,10 @@ public class EmployeeDAO {
     public HashSet<Employee> teamLeadsByEmployee(Employee employee){
         HashSet<Employee> result = new HashSet<>();
 
-        if(employee.getProjects() != null){
-            for(Project project : employee.getProjects()){
-                for(Employee empl : employeesByProject(project.getName())){
-                    if(empl.getPosition() == Position.TEAM_LEAD){
-                        result.add(empl);
-                    }
+        for(Project project : employee.getProjects()){
+            for(Employee empl : employeesByProject(project.getName())){
+                if(empl.getPosition() == Position.TEAM_LEAD){
+                    result.add(empl);
                 }
             }
         }
