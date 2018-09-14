@@ -7,34 +7,26 @@ import java.io.InputStreamReader;
 public class Solution {
 
     public void readNumbers() throws IOException {
-        int attemtsAmount = 10;
         int errors = 3;
         int sum = 0;
 
-        InputStreamReader reader = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(reader);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        while (attemtsAmount > 0){
+        for (int i = 0; i < 10; i++){
+
             String inputData = br.readLine();
 
             if(!checkInput(inputData)){
                 errors--;
                 if(errors == 0){
-                    System.out.println("Your numbers arewrog. Number of attempts exceeded");
+                    System.out.println("Your numbers are wrong. Number of attempts exceeded");
                     System.exit(0);
                 }
                 System.out.println("Your numbers are wrong. You have " + errors + " attempts to try again");
                 continue;
             }
-
-            sum += Integer.parseInt(inputData);
-            attemtsAmount--;
-            if(attemtsAmount == 0){
-                System.out.println(sum);
-            }
         }
-
-        reader.close();
+        System.out.println(sum);
         br.close();
 
     }
