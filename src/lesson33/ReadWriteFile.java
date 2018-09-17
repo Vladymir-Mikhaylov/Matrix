@@ -8,8 +8,15 @@ public class ReadWriteFile {
     public static void main(String[] args) {
         String path1 = new String("E:\\MEGA\\PT\\java-core-grom_fixed\\test1.txt");
         String path2 = new String("E:\\MEGA\\PT\\java-core-grom_fixed\\test3.txt");
-        //String path = ".\\src\\";
-        readFile(path1);
+        /**
+        File file = new File("test3.txt");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
+        //readFile(path1);
         writeFile(path2);
     }
 
@@ -41,21 +48,22 @@ public class ReadWriteFile {
 
     private static void writeFile(String path){
         FileWriter writer = null;
-        BufferedWriter bufferedWriterr = null;
+        PrintWriter printWriter = null;
         try {
             //todo use other constructor
             writer = new FileWriter(path, true);
 
-            bufferedWriterr = new BufferedWriter(writer);
+            printWriter = new PrintWriter(writer);
 
-            bufferedWriterr.append("tra ta ta ....");
-            bufferedWriterr.append("zzzzzzzzz");
+            for(int i = 0; i < 10; i++) {
+                printWriter.append("\r\n" + i + " - tra ta ta ....22222222");
+            }
         } catch (IOException e) {
             System.err.println("We can't write to file!");
             return;
         } finally {
             IOUtils.closeQuietly(writer);
-            IOUtils.closeQuietly(bufferedWriterr);
+            IOUtils.closeQuietly(printWriter);
         }
     }
 }
