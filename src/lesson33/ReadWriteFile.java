@@ -3,6 +3,7 @@ package lesson33;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
+import java.util.Date;
 
 public class ReadWriteFile {
     public static void main(String[] args) {
@@ -17,7 +18,8 @@ public class ReadWriteFile {
         }
         */
         //readFile(path1);
-        writeFile(path2);
+        //writeFile(path2);
+        writeFile22(path2);
     }
 
     private static void readFile (String path) {
@@ -64,6 +66,22 @@ public class ReadWriteFile {
         } finally {
             IOUtils.closeQuietly(writer);
             IOUtils.closeQuietly(printWriter);
+        }
+    }
+
+    static void writeFile22(String path){
+        FileWriter writer = null;
+        BufferedWriter printWriter = null;
+        try {
+            writer = new FileWriter(path, true);
+            printWriter = new BufferedWriter(writer);
+
+            printWriter.append("\r\n");
+            printWriter.append("1"+new Date());
+        } catch (IOException e) {
+            System.err.println("We can't write to file!");
+        } finally {
+
         }
     }
 }
