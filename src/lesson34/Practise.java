@@ -7,7 +7,9 @@ public class Practise {
     public static void main(String[] args)throws Exception {
         String pathFrom = new String("E:\\MEGA\\PT\\java-core-grom_fixed\\test3.txt");
         String pathTo = new String("E:\\MEGA\\PT\\java-core-grom_fixed\\test1.txt");
-        copyFileContent(pathFrom, pathTo);
+
+        //copyFileContent(pathFrom, pathTo);
+        transferFileContent(pathFrom, pathTo);
     }
 
     public static void copyFileContent(String fileFromPath, String fileToPath)throws Exception{
@@ -23,23 +25,31 @@ public class Practise {
     }
 
     private static void validate(String fileFromPath, String fileToPath)throws Exception{
-        File fileTo = new File(fileToPath);
-        File fileFrom = new File(fileFromPath);
+        validateIfFileExist(fileFromPath);
+        validateIfFileExist(fileToPath);
 
-        if(!fileTo.exists()){
-            throw new FileNotFoundException("File " + fileToPath + " doesn't exist");
+        validateReadingFromFile(fileFromPath);
+        validateWritingToFile(fileToPath);
+    }
+
+    private static void validateIfFileExist(String path)throws FileNotFoundException{
+        File file = new File(path);
+        if(!file.exists()){
+            throw new FileNotFoundException("File " + path + " doesn't exist");
         }
+    }
 
-        if(!fileFrom.exists()){
-            throw new FileNotFoundException("File " + fileFromPath + " doesn't exist");
+    private static void validateReadingFromFile(String path) throws Exception{
+        File file = new File(path);
+        if(!file.canRead()){
+            throw new Exception("File " + path + " doesn't have permission for reading");
         }
+    }
 
-        if(!fileFrom.canRead()){
-            throw new Exception("File " + fileFromPath + " doesn't have permission for reading");
-        }
-
-        if(!fileTo.canWrite()){
-            throw new Exception("File " + fileToPath + " doesn't have permission for writing");
+    private static void validateWritingToFile(String path)throws Exception {
+        File file = new File(path);
+        if(!file.canWrite()){
+            throw new Exception("File " + path + " doesn't have permission for writing");
         }
     }
 
@@ -61,6 +71,28 @@ public class Practise {
     private static void writeToFile(String path, StringBuffer content){
         try(PrintWriter printWriter =  new PrintWriter(new FileWriter(path, true))){
             printWriter.append("\r\n" + content);
+        }catch (IOException IOex){
+            System.err.println("We can't write to file!");
+        }
+    }
+
+    public static void transferFileContent(String fileFromPath, String fileToPath)throws Exception{
+        //validate
+        validateIfFileExist(fileFromPath);
+        validateIfFileExist(fileToPath);
+
+        validateReadingFromFile(fileFromPath);
+        validateWritingToFile(fileFromPath);
+        validateWritingToFile(fileToPath);
+        //read and write
+        writeToFile(fileToPath, readFromFile(fileFromPath));
+        //clean up the file
+        cleanUpFile(fileFromPath);
+    }
+
+    private static void cleanUpFile(String path){
+        try(PrintWriter printWriter =  new PrintWriter(new FileWriter(path, false))){
+            printWriter.append("");
         }catch (IOException IOex){
             System.err.println("We can't write to file!");
         }
