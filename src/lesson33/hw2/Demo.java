@@ -50,7 +50,7 @@ public class Demo {
         return path;
     }
 
-    private static void readFileAndWrite(String path) throws FileNotFoundException {
+    private static void readFileAndWrite(String path) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(path));
         try {
             String line;
