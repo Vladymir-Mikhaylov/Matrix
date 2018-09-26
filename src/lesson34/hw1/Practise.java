@@ -5,8 +5,8 @@ import java.io.*;
 public class Practise {
 
     public static void main(String[] args)throws Exception {
-        String pathFrom = new String("E:\\MEGA\\PT\\java-core-grom_fixed\\test3.txt");
-        String pathTo = new String("E:\\MEGA\\PT\\java-core-grom_fixed\\test1.txt");
+        String pathFrom = "E:\\MEGA\\PT\\java-core-grom_fixed\\test3.txt";
+        String pathTo = "E:\\MEGA\\PT\\java-core-grom_fixed\\test1.txt";
 
         transferFileContent(pathFrom, pathTo);
     }
@@ -15,9 +15,7 @@ public class Practise {
         //validate
         validate(fileFromPath, fileToPath);
         //read and write
-        writeToFile(fileToPath, readFromFile(fileFromPath));
-        //clean up the file
-        cleanUpFile(fileFromPath);
+        writeToFile(fileToPath, readFromFile(fileFromPath), fileFromPath);
     }
 
     private static void validate(String fileFromPath, String fileToPath)throws Exception{
@@ -25,6 +23,8 @@ public class Practise {
         validateIfFileExist(fileToPath);
 
         validateReadingFromFile(fileFromPath);
+        validateReadingFromFile(fileToPath);
+
         validateWritingToFile(fileFromPath);
         validateWritingToFile(fileToPath);
     }
@@ -65,11 +65,19 @@ public class Practise {
         return res;
     }
 
-    private static void writeToFile(String path, StringBuffer content){
-        try(PrintWriter printWriter =  new PrintWriter(new FileWriter(path, true))){
+    private static void writeToFile(String pathTo, StringBuffer content, String pathFrom){
+
+        StringBuffer backUp =  readFromFile(pathTo);
+
+        try(PrintWriter printWriter =  new PrintWriter(new FileWriter(pathTo, true))){
             printWriter.append("\r\n" + content);
-        }catch (IOException IOex){
-            System.err.println("We can't write to file!");
+            cleanUpFile(pathFrom);
+        }catch (IOException IOex) {
+            try (PrintWriter printWriterBackUp = new PrintWriter(new FileWriter(pathTo, false))) {
+                printWriterBackUp.append(backUp);
+            } catch (IOException IOEx) {
+                System.err.println("We can't write to file!");
+            }
         }
     }
 
