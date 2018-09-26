@@ -8,6 +8,4 @@ public class Demo {
         String path = "E:\\MEGA\\PT\\java-core-grom_fixed\\test3.txt";
         Lesson33Task1.writeToFileFromConsole(path);
     }
-
-
 }

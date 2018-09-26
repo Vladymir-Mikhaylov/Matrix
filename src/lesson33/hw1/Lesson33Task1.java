@@ -5,16 +5,16 @@ import org.apache.commons.io.IOUtils;
 import java.io.*;
 
 public class Lesson33Task1 {
+
     public static void writeToFileFromConsole(String path) throws FileNotFoundException {
         //check if file exists
         validate(path);
 
         System.out.println("Enter file content to write: ");
 
-        //write printed data to file @path@
-        write(read(), path);
+        String content = read();
+        write(content, path);
     }
-
 
     private static String read(){
         BufferedReader inputStreamReader = new BufferedReader( new InputStreamReader(System.in));
