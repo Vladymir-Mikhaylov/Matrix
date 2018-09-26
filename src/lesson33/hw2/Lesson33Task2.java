@@ -9,7 +9,7 @@ public class Lesson33Task2 {
     public static void readFileByConsolePath()throws Exception{
         String path = readPath();
         validate(path);
-        readFileAndWrite(path);
+        print(path);
     }
 
     private static void validate(String path) throws Exception {
@@ -46,7 +46,7 @@ public class Lesson33Task2 {
         return path;
     }
 
-    private static void readFileAndWrite(String path) throws IOException {
+    private static void print(String path) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(path));
         try {
             String line;
