@@ -14,8 +14,10 @@ public class Practise {
     public static void transferFileContent(String fileFromPath, String fileToPath)throws Exception{
         //validate
         validate(fileFromPath, fileToPath);
-        //read and write
-        writeToFile(fileToPath, readFromFile(fileFromPath), fileFromPath);
+        //read
+        StringBuffer content = readFromFile(fileFromPath);
+        //write
+        writeToFile(fileToPath, content, fileFromPath);
     }
 
     private static void validate(String fileFromPath, String fileToPath)throws Exception{
@@ -76,7 +78,7 @@ public class Practise {
             try (PrintWriter printWriterBackUp = new PrintWriter(new FileWriter(pathTo, false))) {
                 printWriterBackUp.append(backUp);
             } catch (IOException IOEx) {
-                System.err.println("We can't write to file!");
+                System.err.println("We can't backUp file!");
             }
         }
     }
