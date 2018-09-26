@@ -90,5 +90,4 @@ public class Practise {
             System.err.println("We can't write to file!");
         }
     }
-
 }

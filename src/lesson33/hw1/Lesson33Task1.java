@@ -27,7 +27,6 @@ public class Lesson33Task1 {
                 consoleData += "\r\n" + enteredText;
                 enteredText = inputStreamReader.readLine();
             }
-
         } catch (IOException e) {
             System.err.println("Reading from keyboard failed");
         } finally {
@@ -37,16 +36,21 @@ public class Lesson33Task1 {
     }
 
     private static void write(String consoleData, String path){
-        FileWriter fileWriter = null;
         PrintWriter writer = null;
+
+        StringBuffer backUp = readFromFile(path);
         try {
-            fileWriter = new FileWriter(path, true);
-            writer = new PrintWriter(fileWriter);
+            writer = new PrintWriter(new FileWriter(path, true));
             writer.append("\r\n" + consoleData);
         } catch (IOException e) {
             System.err.println("We can't write to file!");
+            try (PrintWriter printWriterBackUp = new PrintWriter(new FileWriter(path, false))) {
+                printWriterBackUp.append(backUp);
+            } catch (IOException IOEx) {
+                System.err.println("We can't backUp file!");
+            }
+
         } finally {
-            IOUtils.closeQuietly(fileWriter);
             IOUtils.closeQuietly(writer);
         }
     }
@@ -58,5 +62,20 @@ public class Lesson33Task1 {
             System.out.println("File with path " + path + " not found");
             throw new FileNotFoundException();
         }
+    }
+
+    private static StringBuffer readFromFile(String path){
+        StringBuffer res = new StringBuffer();
+        try(BufferedReader br = new BufferedReader(new FileReader(path))){
+            String line;
+            while ( (line = br.readLine()) != null) {
+                res.append("\r\n" + line);
+            }
+        }catch (FileNotFoundException fEx){
+            System.err.println("File doesn't exist!");
+        }catch (IOException ioEx){
+            System.err.println("Reading from file " + path + " failed");
+        }
+        return res;
     }
 }
