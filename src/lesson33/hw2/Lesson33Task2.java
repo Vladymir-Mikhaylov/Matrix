@@ -13,22 +13,22 @@ public class Lesson33Task2 {
     }
 
     private static void validate(String path) throws Exception {
-        validateIfExist(path);
-        validateIfCanRead(path);
+        File file = new File(path);
+        validateIfExist(path, file);
+        validateIfCanRead(path, file);
     }
 
-    private static void validateIfExist(String path) throws FileNotFoundException {
-        File file = new File(path);
+    private static void validateIfExist(String path, File file) throws FileNotFoundException {
+
         if(!file.exists()){
-            System.out.println("File with path " + path + " not found");
-            throw new FileNotFoundException();
+            System.err.println("File with path " + path + " not found");
+            System.exit(1);
         }
     }
 
-    private static void validateIfCanRead(String path) throws Exception {
-        File file = new File(path);
+    private static void validateIfCanRead(String path, File file) throws Exception {
         if(!file.canRead()){
-            System.out.println("File with path " + path + " can't be read");
+            System.err.println("File with path " + path + " can't be read");
             throw new Exception();
         }
     }
