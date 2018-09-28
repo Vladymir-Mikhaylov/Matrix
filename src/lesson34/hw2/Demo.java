@@ -1,7 +1,5 @@
 package lesson34.hw2;
 
-import lesson34.Solution;
-
 public class Demo {
     public static void main(String[] args) throws Exception{
         String pathFrom = new String("E:\\MEGA\\PT\\java-core-grom_fixed\\test3.txt");
